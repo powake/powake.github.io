@@ -25,11 +25,11 @@ Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web l�
 
   Tài liệu từ Django
   
-  * https://docs.djangoproject.com/en/4.0/
+  * [https://docs.djangoproject.com/en/4.0/](https://docs.djangoproject.com/en/4.0/)
   
-  * https://www.geeksforgeeks.org/django-tutorial/
+  * [https://www.geeksforgeeks.org/django-tutorial/](https://www.geeksforgeeks.org/django-tutorial/)
   
-  * https://tomomano.gitlab.io/intro-aws/#aws_account
+  * [https://tomomano.gitlab.io/intro-aws/#aws_account](https://tomomano.gitlab.io/intro-aws/#aws_account)
   
 ## 2/ Cài đặt
 
@@ -39,53 +39,53 @@ Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web l�
   Trong bài viết này chỉ đề cập đến môi trường ảo trên ubuntu (trên các hệ điều hành khác sẽ không được đề cập tại đây)
   
   Cài đặt thư viện python3-venv
-  ```python
+  ```shell
   sudo apt-get install -y python3-venv
   ```
   Tạo folder dự án
-  ```python
+  ```shell
   mkdir my_project
   ```
   Tạo môi trường ảo
-  ```python
+  ```shell
   cd my_project
   ```
-  ```python
+  ```shell
   python -m venv django-env
   ```
   Kích hoặt môi trường ảo 
-  ```python
+  ```shell
   source django-env/bin/activate 
   ```
   Hủy kích hoạt 
-  ```python
+  ```shell
   deactivate 
   ```
 #### 2-2/ Cài đặt các thư viện yêu cầu 
 
   Để thuận tiện cho quá trình thêm và cài đặt các thư viện yêu cầu cần thiết trong dự trên venv chúng ta nên tạo file requirements.txt. Ở đây chúng ta    không sử dụng "pip freeze" tránh trường hợp cài quá nhiều thư viện không cần thiết.
-  ```python
+  ```shell
   touch requirements.txt 
   ```
-  ```python
+  ```shell
   pip install -r requirements.txt 
   ```
 ## 3/ Tạo ứng dụng web django đầu tiên
 
 #### 3-1/ Tạo project 
-  ```python
+  ```shell
   django-admin startproject web_project
   ```
 #### 3-2/ Tạo web app bên trong project
-  ```python
+  ```shell
   cd web_project
   ```
-  ```python
+  ```shell
   python manage.py startapp my_web
   ```
   
 #### 3-3/ Chạy thử nghiệm
-  ```python
+  ```shell
   python manage.py runserver
   ```
   
