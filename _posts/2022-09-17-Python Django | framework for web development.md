@@ -6,6 +6,11 @@ categories: [Python,Django]
 tags: [django,web]
 math: true
 mermaid: true
+image:
+  path: /assets/img/django.png
+  width: 800
+  height: 500
+  alt: Django - framework for web development.
 ---
 Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web lên server trên các nền tảng khác nhau.
 
