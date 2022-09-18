@@ -91,12 +91,12 @@ Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web l�
   python manage.py runserver
   ```
   
-### Tìm hiểu về mô hình MVT (Models  ---> Views ---> Templates)
+### Tìm hiểu về mô hình MVT (Models - View - Templates)
 ### Tùy chỉnh cơ bản 
 ### Áp dụng 
 ## Tạo blog cá nhân 
 ### Tạo webapp django 
-### Thiết kế Frontend với Nicepage (hoặc bất kỳ phần thứ gì bạn thích)
+### Thiết kế Frontend với Nicepage
 ### Kết hợp django với templates từ nicepage 
 ## Deloy 
 ### AWS 
