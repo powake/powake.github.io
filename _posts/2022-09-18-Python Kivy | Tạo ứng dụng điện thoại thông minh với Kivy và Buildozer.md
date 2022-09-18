@@ -16,13 +16,15 @@ Trong bài viết này, chúng ta cùng tìm hiểu về framework Kivy, cách x
 
 ## Sơ lược
 ### Giới thiệu framework django
-* Giới thiệu về framework kivy 
-* Mục tiêu bài viết
-## Liên kết 
+### Mục tiêu bài viết
+### Các liên kết và nguồn tài liệu tham khảo 
 ## Cài đặt
+### Khởi tạo môi trường
+### Cài đặt các thư viện yêu cầu
 ## Ứng dụng đầu tiên
 ## Ứng dụng nâng cao
 ## Khởi tạo môi trường build trên Ubuntu 20.04
 ## Build app adroid 
 ## Các lỗi thường gặp và cách sửa
 ## Tương lai 
+*Bài viết sẽ được cập nhật thường xuyên.
