@@ -10,7 +10,7 @@ image:
   path: /assets/img/kivy.png
   width: 800
   height: 500
-  alt: Django - framework for mobile app development.
+  alt: Kivy - framework for mobile app development.
 ---
 Trong bài viết này, chúng ta cùng tìm hiểu về framework Kivy, cách xây dựng một ứng dụng điện thoại với Kivy và build thành app android với buildozer.
 
