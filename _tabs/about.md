@@ -8,8 +8,8 @@ order: 4
 {: .prompt-tip } -->
 ## What We Are
 
-Powake blog is an amazingly awesome ICANN accredited domain name registrar based out of the Pacific Northwest. We're different, we're easy, and we're affordable. Use us, you won't be sorry. If you don't use us we'll be sad, but we'll still love you.
+Powake blog ghi lại những gì chúng tôi đã trải qua trong quá trình học tập và làm việc với kiến thức trên nhiều chuyên ngành khác nhau.Mong muốn tổng quan lại kiến thức cá nhân, chia sẻ kiến thức đến quý bạn đọc và mong nhận được ý kiến đóng góp của các bạn để phát triển bản thân và cộng đồng!
 
 ## Member
-* [Tran Le Quy Bao]()
+* [Tran Le Quy Bao](https://github.com/TLQB)
 * [Huynh Le Vu]()
