@@ -12,13 +12,15 @@ image:
   height: 500
   alt: Django - framework for web development.
 ---
+
+
 ## Cài đặt thư viện
 
 Thư viện hỗ trợ phân tích âm thanh và âm nhạc là Librosa
 
 
 
-```
+```python
 !pip install librosa
 !pip install tensorflow
 ```
@@ -27,7 +29,7 @@ Thư viện hỗ trợ phân tích âm thanh và âm nhạc là Librosa
 
 
 
-```
+```python
 import IPython.display as ipd
 filepath = "archive/fold1/101415-3-0-2.wav"
 ipd.Audio(filepath)
@@ -42,7 +44,7 @@ ipd.Audio(filepath)
 
 
 
-```
+```python
 !pip install matplotlib
 ```
 
@@ -50,7 +52,7 @@ ipd.Audio(filepath)
 
 
 
-```
+```python
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt
@@ -71,11 +73,12 @@ Librosa hiện đang trở nên phổ biến để xử lý tín hiệu âm than
 
 ## Kiểm tra tập dữ liệu mất cân bằng
 
-`!pip install pandas`
-
-
-
+```python
+!pip install pandas
 ```
+
+
+```python
 import pandas as pd
 metadata = pd.read_csv('csv/UrbanSound8K.csv')
 metadata.head(10)
@@ -85,13 +88,17 @@ metadata.head(10)
 
 sử dụng hàm đếm giá trị để kiểm tra bản ghi của mỗi lớp.
 
-`metadata['class'].value_counts()`
-
-`!pip install seaborn`
-
-
-
+```python
+metadata['class'].value_counts()
 ```
+
+```python
+!pip install seaborn
+```
+
+
+
+```python
 import seaborn as sns
 plt.figure(figsize=(10, 6))
 sns.countplot(metadata['class'])
@@ -112,7 +119,7 @@ MFCC tóm tắt sự phân bố tần số trên kích thước cửa sổ. Vì 
 
 
 
-```
+```python
 mfccs = librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=40)
 print(mfccs.shape)
 print(mfccs)
@@ -124,7 +131,7 @@ mfccs.shape: https://stackoverflow.com/questions/65206575/what-are-the-component
 
  ### Trích xuất các tính năng từ tất cả các tệp âm thanh và chuẩn bị khung dữ liệu
 
-```
+```python
 !pip install numpy
 ```
 
@@ -136,7 +143,7 @@ Theo mặc định, điều này sử dụng chế độ chất lượng cao c�
 
 Để sử dụng scipy.signal.resample, hãy đặt res_type = 'scipy'.
 
-```
+```python
 import numpy as np
 def features_extractor(file_name):
     audio, sample_rate = librosa.load(file_name, res_type='kaiser_fast') 
@@ -148,11 +155,11 @@ def features_extractor(file_name):
 
  thư viện python TQDM để theo dõi tiến trình
 
-```
+```python
 !pip install tqdm
 ```
 
-```
+```python
 
 import numpy as np
 from tqdm import tqdm
@@ -166,7 +173,7 @@ for index_num,row in tqdm(metadata.iterrows()):
     extracted_features.append([data,final_class_labels])
 ```
 
-```
+```python
 extracted_features_df=pd.DataFrame(extracted_features,columns=['feature','class'])
 extracted_features_df.head()
 ```
@@ -177,7 +184,7 @@ Tách tập dữ liệu thành tập dữ liệu độc lập và phụ thuộc
 
 
 
-```
+```python
 X=np.array(extracted_features_df['feature'].tolist())
 y=np.array(extracted_features_df['class'].tolist())
 ```
@@ -188,7 +195,7 @@ Mã hóa nhãn thành số nguyên
 
 
 
-```
+```python
 from tensorflow.keras.utils import to_categorical
 from sklearn.preprocessing import LabelEncoder
 labelencoder=LabelEncoder()
@@ -201,7 +208,7 @@ chia dữ liệu thành các tập huấn luyện và thử nghiệm theo tỷ l
 
 
 
-```
+```python
 from sklearn.model_selection import train_test_split
 X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=0)
 ```
@@ -220,7 +227,7 @@ ANN với 3 lớp dày đặc và kiến ​​trúc:
 
 
 
-```
+```python
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Dropout,Activation,Flatten
 from tensorflow.keras.optimizers import Adam
@@ -231,7 +238,7 @@ num_labels=y.shape[1]
 
 
 
-```
+```python
 model=Sequential()
 ###first layer
 model.add(Dense(100,input_shape=(40,)))
@@ -250,13 +257,15 @@ model.add(Dense(num_labels))
 model.add(Activation('softmax'))
 ```
 
-```model.summary()```
+```python
+model.summary()
+```
 
 ## Biên dịch mô hình
 
 Để biên dịch mô hình, chúng ta cần xác định loss function là cross-entropy, accuracy metrics là accuracy score và optimizer là Adam.
 
-```
+```python
 model.compile(loss='categorical_crossentropy',metrics=['accuracy'],optimizer='adam')
 ```
 
@@ -276,7 +285,7 @@ verbose=2 sẽ chỉ đề cập đến số kỷ nguyên: Epoch 1/10 ...
 
 
 
-```
+```python
 
 from tensorflow.keras.callbacks import ModelCheckpoint
 from datetime import datetime 
@@ -319,7 +328,7 @@ checkpointer = ModelCheckpoint(filepath='./audio_classification.hdf5',
 
 
 
-```
+```python
 start = datetime.now()
 model.fit(X_train, y_train, batch_size=num_batch_size, epochs=num_epochs, validation_data=(X_test, y_test), callbacks=[checkpointer], verbose=1)
 duration = datetime.now() - start
@@ -341,13 +350,15 @@ print(test_accuracy[1])
 
  sử dụng thuộc tính metrics_names của mô hình để tìm hiểu xem mỗi giá trị trả về của model.evaluate tương ứng với cái gì
 
-`model.metrics_names`
+```python
+model.metrics_names
+```
 
 Dự đoán lớp tương ứng cho mỗi tệp âm thanh
 
 
 
-```
+```python
 predict_x=model.predict(X_test) 
 classes_x=np.argmax(predict_x,axis=1)
 print(classes_x)
@@ -357,7 +368,7 @@ print(classes_x)
 
 ## Kiểm tra một số mẫu âm thanh thử nghiệm
 
-```
+```python
 filename="archive/fold7/101848-9-0-0.wav"
 #preprocess the audio file
 audio, sample_rate = librosa.load(filename, res_type='kaiser_fast') 
