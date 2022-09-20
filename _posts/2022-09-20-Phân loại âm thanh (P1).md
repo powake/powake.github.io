@@ -13,30 +13,6 @@ image:
   alt: Django - framework for web development.
 ---
 
----
-jupyter:
-  kernelspec:
-    display_name: Python 3.7.13 (\'py37\')
-    language: python
-    name: python3
-  language_info:
-    codemirror_mode:
-      name: ipython
-      version: 3
-    file_extension: .py
-    mimetype: text/x-python
-    name: python
-    nbconvert_exporter: python
-    pygments_lexer: ipython3
-    version: 3.7.13
-  nbformat: 4
-  nbformat_minor: 2
-  orig_nbformat: 4
-  vscode:
-    interpreter:
-      hash: 81f67c7a32a13c5163a580b3fb41a0ccbac09940b42153d797c8b5ecbeed3d06
----
-
 ## Cài đặt thư viện
 :::
 
