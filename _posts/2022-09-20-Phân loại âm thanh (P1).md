@@ -12,7 +12,7 @@ image:
   height: 500
   alt: Django - framework for web development.
 ---
-### <font color = 'green'> TensorFlow 2 architecture – What happens during graph build?
+## <font color = 'green'> TensorFlow 2 architecture – What happens during graph build?
 
 Khi bạn gọi một hàm được trang trí bởi tf.function(), chẳng hạn như hàm layer(), có một chút xảy ra trong nền. Đầu tiên, TensorFlow sẽ theo dõi tất cả các hoạt động TensorFlow diễn ra trong hàm và tự động xây dựng biểu đồ tính toán.
 
