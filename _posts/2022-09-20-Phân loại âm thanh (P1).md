@@ -292,7 +292,7 @@ checkpointer = ModelCheckpoint(filepath='./audio_classification.hdf5',
 
 
 
-```
+```python
 # checkpoint
 # filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
 # checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
@@ -305,7 +305,7 @@ checkpointer = ModelCheckpoint(filepath='./audio_classification.hdf5',
 
 
 
-```
+```python
 # checkpoint
 # from tensorflow.keras.callbacks import EarlyStopping
 # filepath="weights.best.hdf5"
