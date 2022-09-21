@@ -43,7 +43,20 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
     ![image3](/assets/img/Screenshot from 2022-09-21 10-52-41.png)
     
 ### Cài đặt
-
+#### Ubuntu
+  * Cài đặt Ruby và các điều kiện tiên quyết khác :
+  ```shell
+  sudo apt-get install ruby-full build-essential zlib1g-dev
+  ```
+  ```shell
+  echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
+  echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
+  echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
+  source ~/.bashrc
+  ```
+  ```shell
+  gem install jekyll bundler
+  ```
 ### Config code
 ### Deploy blog
 ### Thêm miền tùy chỉnh
