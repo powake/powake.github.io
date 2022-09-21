@@ -26,13 +26,30 @@ Hiện tại có rất nhiều cách để tạo 1 trang web (cho người khôn
   * [https://viblo.asia/p/dung-jekyll-travis-va-github-pages-de-tao-ra-muon-van-trang-web-de-dang-Qbq5QWp3ZD8](https://viblo.asia/p/dung-jekyll-travis-va-github-pages-de-tao-ra-muon-van-trang-web-de-dang-Qbq5QWp3ZD8)
   * [https://github.com/cotes2020/chirpy-starter](https://github.com/cotes2020/chirpy-starter)
 ## Tạo blog
-### Khỏi tạo repositories
+Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ kho lưu trữ của mình.
+### Khởi tạo repositories
+* Truy cập vào [https://github.com/topics/jekyll-plugin](https://github.com/topics/jekyll-plugin) và chọn một template bạn yêu thích từ jekelyy. Trong bài này tôi chọn template [https://github.com/cotes2020/chirpy-starter](https://github.com/cotes2020/chirpy-starter).
+* Fork repositories và đặt tên lại <tên blog của bạn>.github.io
+    *Fork repositories từ chirpy-starter.
+    
+    ![image1](/assets/img/Screenshot from 2022-09-21 10-51-54.png)
+    
+    *Đặt tên lại repositpries.
+    
+    ![image2](/assets/img/Screenshot from 2022-09-21 10-52-20.png)
+    
+    *Kết quả.
+    
+    ![image3](/assets/img/Screenshot from 2022-09-21 10-52-41.png)
+    
+### Cài đặt
+
 ### Config code
 ### Deploy blog
 ### Thêm miền tùy chỉnh
 #### Có SSL
 #### Không SSL
-### Tạo bài viết đầy tiên
+### Tạo bài viết đầu tiên
 #### Giới thiệu ngôn ngữ Maskdown
 #### Các bước tạo bài viết
 ## Các lỗi thường gặp và cách fix
