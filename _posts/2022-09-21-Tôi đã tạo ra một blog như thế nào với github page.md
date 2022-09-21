@@ -78,14 +78,23 @@ Bạn sẽ tìm thấy hướng dẫn cụ thể cho việc config template này
 Trong bài viết này sẽ chỉ đề cập đến việc config những phần cơ bản, bạn có thể xem và config sâu hơn tùy ý theo tài liệu.
 Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
 * Title  (line 20) 
+
     title: <tên blog của bạn>
-    
-* url (line 32) 
-    url: '<tên repositeries>' 
+
     ví dụ: 
-      url: '[https://tlqbao.github.io](https://tlqbao.github.io)' 
+    
+      title: tlqbao 
+      
+* url (line 32) 
+
+    url: '<tên repositeries>'
+    
+    ví dụ: 
+    
+      url: 'https://tlqbao.github.io' 
       
 * timezone (line 19)
+
   timezone: Asia/Ho_Chi_Minh
   
 * 
