@@ -58,6 +58,38 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
   gem install jekyll bundler
   ```
 ### Config code
+Clone source code về máy để config
+```shell
+git clone https://github.com/tlqbao/tlqbao.github.io.git
+```
+```shell
+cd tlqbao.github.io.git
+```
+Cài đặt các gói phụ thuộc
+```shell
+bundler
+```
+Run local host
+```shell
+bundle exec jekyll s
+```
+Bạn sẽ tìm thấy hướng dẫn cụ thể cho việc config template này ở [https://github.com/cotes2020/jekyll-theme-chirpy#documentation](https://github.com/cotes2020/jekyll-theme-chirpy#documentation)
+
+Trong bài viết này sẽ chỉ đề cập đến việc config những phần cơ bản, bạn có thể xem và config sâu hơn tùy ý theo tài liệu.
+Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
+* Title  (line 20) 
+    title: <tên blog của bạn>
+    
+* url (line 32) 
+    url: '<tên repositeries>' 
+    ví dụ: 
+      url: '[https://tlqbao.github.io](https://tlqbao.github.io)' 
+      
+* timezone (line 19)
+  timezone: Asia/Ho_Chi_Minh
+  
+* 
+
 ### Deploy blog
 ### Thêm miền tùy chỉnh
 #### Có SSL
