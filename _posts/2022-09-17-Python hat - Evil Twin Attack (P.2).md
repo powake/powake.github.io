@@ -11,6 +11,6 @@ Tiếp nối bài viết Tấn công mạng với ngôn ngữ Python phần 1 (D
 
 [Evil Twin Attack (P.2) - Video](https://www.youtube.com/watch?v=m0cHXNhBKyc&t=2s).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/R191cKu55QU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/m0cHXNhBKyc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-[![Evil Twin Attack](http://img.youtube.com/vi/m0cHXNhBKyc&t=2s/0.jpg)](http://www.youtube.com/watch?v=m0cHXNhBKyc&t=2s)
+<!-- [![Evil Twin Attack](http://img.youtube.com/vi/m0cHXNhBKyc&t=2s/0.jpg)](http://www.youtube.com/watch?v=m0cHXNhBKyc&t=2s) -->
