@@ -23,8 +23,6 @@ Mặt khác, tần số ở dạng sóng là đại diện của số lần mộ
 
 ### Quang phổ (Spectrograms)
 
-![](image/2.png)
-
 Quang phổ là một biểu diễn trực quan của phổ tần số của một tín hiệu khi nó thay đổi theo thời gian. Khi được áp dụng cho một tín hiệu âm thanh , các bản ghi quang phổ đôi khi được gọi là bản ghi âm
 
 ## Dự án Phân loại Âm thanh
