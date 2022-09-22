@@ -1,7 +1,7 @@
 ---
 title: Python hat - Evil Twin Attack (P.2)
 author: tranlequybao
-date: 2022-09-23
+date: 2022-09-17
 categories: [Python,Hat]
 tags: [hat,wifi]
 math: true
