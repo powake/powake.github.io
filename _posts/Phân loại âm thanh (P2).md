@@ -10,7 +10,7 @@ image:
   path: /assets/img/plat2.jpg
   width: 800
   height: 500
-  alt: Phân loại âm thanh.
+  alt: Phân loại âm thanh P2.
 ---
 
 ## Khái niệm cơ bản về phân loại âm thanh
