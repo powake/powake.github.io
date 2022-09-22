@@ -127,7 +127,7 @@ Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
   ![image10](/assets/img/Screenshot from 2022-09-22 08-54-07.png)
   
 * Config git.
-* 
+
   Chọn **Settings ---> **Pages .
   
   ![image11](/assets/img/Screenshot from 2022-09-22 08-56-27.png)
@@ -136,7 +136,17 @@ Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
   
   ![image12](/assets/img/Screenshot from 2022-09-22 08-59-29.png)
   
+  Ở **Deploy from branch chọn **gh-pages.
+  
+  ![image13](/assets/img/Screenshot from 2022-09-22 10-17-04.png)
+  ![image14](/assets/img/Screenshot from 2022-09-22 10-17-22.png)
+  
+  Kết quả: 
+  
+  ![image15](/assets/img/Screenshot from 2022-09-22 10-17-58.png)
+  
 ### Thêm miền tùy chỉnh
+
 #### Có SSL
 #### Không SSL
 ### Tạo bài viết đầu tiên
