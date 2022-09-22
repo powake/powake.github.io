@@ -154,6 +154,7 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
 * Domain venom
   ![image16](/assets/img/Screenshot from 2022-09-22 20-21-24.png)
   ![image17](/assets/img/Screenshot from 2022-09-22 20-21-52.png)
+  ![image18](/assets/img/Screenshot from 2022-09-22 20-25-40.png)
 
 ### Tạo bài viết đầu tiên
 #### Giới thiệu ngôn ngữ Maskdown
