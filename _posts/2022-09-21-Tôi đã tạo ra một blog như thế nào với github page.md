@@ -73,6 +73,7 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
   ```shell
   cd tlqbao.github.io.git
   ```
+  
 * Cài đặt các gói phụ thuộc
   ```shell
   bundler
