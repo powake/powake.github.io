@@ -7,7 +7,7 @@ tags: [ML, AI]
 math: true
 mermaid: true
 image:
-  path: /assets/img/plat.jpg
+  path: /assets/img/plat.png
   width: 800
   height: 500
   alt: Phân loại âm thanh.
