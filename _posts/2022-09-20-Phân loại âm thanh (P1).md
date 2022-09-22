@@ -1,5 +1,5 @@
 ---
-title: Phân loại âm thanh (P2)
+title: Phân loại âm thanh (P1)
 author: huynhlevu
 date: 2022-09-22
 categories: [Python,Machine-learning]
