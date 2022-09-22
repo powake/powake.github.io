@@ -31,7 +31,11 @@ Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web l�
   
   * [https://docs.djangoproject.com/en/4.0/](https://docs.djangoproject.com/en/4.0/)
   
+  Tài liệu từ geeksforgeeks
+  
   * [https://www.geeksforgeeks.org/django-tutorial/](https://www.geeksforgeeks.org/django-tutorial/)
+  
+  Tài liệu từ tomomano.gitlab.io
   
   * [https://tomomano.gitlab.io/intro-aws/#aws_account](https://tomomano.gitlab.io/intro-aws/#aws_account)
   
@@ -41,35 +45,39 @@ Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web l�
   Việc khởi tạo môi trường ảo để phục vụ cho project là cần thiết, tránh sự ảnh hưởng từ môi trường máy đến project và ngược lại.
   Trong bài viết này chỉ đề cập đến môi trường ảo trên ubuntu (trên các hệ điều hành khác sẽ không được đề cập tại đây)
   
-  Cài đặt thư viện python3-venv
+  * Cài đặt thư viện python3-venv
   ```shell
   sudo apt-get install -y python3-venv
   ```
-  Tạo folder dự án
+  * Tạo folder dự án
   ```shell
   mkdir my_project
   ```
-  Tạo môi trường ảo
+  * Di chuyển cào folder dự án
   ```shell
   cd my_project
   ```
+  * Tạo môi trường ảo
   ```shell
   python -m venv django-env
   ```
-  Kích hoặt môi trường ảo 
+  * Kích hoặt môi trường ảo 
   ```shell
   source django-env/bin/activate 
   ```
-  Hủy kích hoạt 
+  * Hủy kích hoạt môi trường
   ```shell
   deactivate 
   ```
 ### Cài đặt các thư viện yêu cầu 
 
   Để thuận tiện cho quá trình thêm và cài đặt các thư viện yêu cầu cần thiết trong dự trên venv chúng ta nên tạo file requirements.txt. Ở đây chúng ta    không sử dụng "pip freeze" tránh trường hợp cài quá nhiều thư viện không cần thiết.
+  
+  * Tạo file requirements.txt
   ```shell
   touch requirements.txt 
   ```
+  * Cài đặt các thư viện yêu cầu trong file requirements.txt
   ```shell
   pip install -r requirements.txt 
   ```
@@ -79,14 +87,15 @@ Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web l�
   django-admin startproject web_project
   ```
 ### Tạo web app bên trong project
+  * Di chuyển vào folder dự án
   ```shell
   cd web_project
   ```
+  * Tạo web app
   ```shell
   python manage.py startapp my_web
   ```
-  
-### Chạy thử nghiệm
+  * Chạy thử nghiệm
   ```shell
   python manage.py runserver
   ```
