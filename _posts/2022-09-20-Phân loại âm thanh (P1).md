@@ -1,13 +1,13 @@
 ---
 title: Phân loại âm thanh (P1)
 author: huynhlevu
-date: 2022-09-22
+date: 2022-09-20
 categories: [Python,Machine-learning]
 tags: [ML, AI]
 math: true
 mermaid: true
 image:
-  path: /assets/img/plat2.jpg
+  path: /assets/img/plat.jpg
   width: 800
   height: 500
   alt: Phân loại âm thanh.
