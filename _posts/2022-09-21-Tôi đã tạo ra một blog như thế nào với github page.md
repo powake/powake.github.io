@@ -44,7 +44,7 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
     
 ### Cài đặt
 #### Ubuntu
-  * Cài đặt Ruby và các điều kiện tiên quyết khác :
+* Cài đặt Ruby và các điều kiện tiên quyết khác :
   ```shell
   sudo apt-get install ruby-full build-essential zlib1g-dev
   ```
@@ -67,39 +67,38 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
   
 ### Config code
 * Clone source code về máy để config
-```shell
-git clone https://github.com/tlqbao/tlqbao.github.io.git
-```
-```shell
-cd tlqbao.github.io.git
-```
-* Cài đặt các gói phụ thuộc
-```shell
-bundler
-```
-![image7](/assets/img/Screenshot from 2022-09-22 08-48-48.png)
+  ```shell
+  git clone https://github.com/tlqbao/tlqbao.github.io.git
+  ```
+  ```shell
+  cd tlqbao.github.io.git
+  ```
+  * Cài đặt các gói phụ thuộc
+  ```shell
+  bundler
+  ```
+  ![image7](/assets/img/Screenshot from 2022-09-22 08-48-48.png)
 
 * Run local host
-```shell
-bundle exec jekyll s
-```
-![image8](/assets/img/Screenshot from 2022-09-22 08-50-58.png)
+  ```shell
+  bundle exec jekyll s
+  ```
+  ![image8](/assets/img/Screenshot from 2022-09-22 08-50-58.png)
 
-![image9](/assets/img/Screenshot from 2022-09-22 08-52-15.png)
+  ![image9](/assets/img/Screenshot from 2022-09-22 08-52-15.png)
 
 * Bạn sẽ tìm thấy hướng dẫn cụ thể cho việc config template này ở [https://github.com/cotes2020/jekyll-theme-chirpy#documentation](https://github.com/cotes2020/jekyll-theme-chirpy#documentation)
 
-Trong bài viết này sẽ chỉ đề cập đến việc config những phần cơ bản, bạn có thể xem và config sâu hơn tùy ý theo tài liệu.
-Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
-* Title  (line 20) 
+  Trong bài viết này sẽ chỉ đề cập đến việc config những phần cơ bản, bạn có thể xem và config sâu hơn tùy ý theo tài liệu.
+  Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
+* Title  (line 20).
 
     title: <tên blog của bạn>
-
     ví dụ: 
     
       title: tlqbao 
       
-* url (line 32) 
+* url (line 32)
 
     url: '<tên repositeries>'
     
@@ -146,11 +145,24 @@ Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
   ![image15](/assets/img/Screenshot from 2022-09-22 10-17-58.png)
   
 ### Thêm miền tùy chỉnh
-
 #### Có SSL
+* Domain porkbun
 #### Không SSL
+* Domain venom
+
 ### Tạo bài viết đầu tiên
 #### Giới thiệu ngôn ngữ Maskdown
+Một số syntax cơ bản trong Markdown.
+Markdown	HTML	Kết quả
+| Markdown | HTML | Kết quả  |
+|:-------|:------:|-------:|
+|  # Header 1  |  <h1>Header 1</h1>  |   Header 1  |
+|  ## Header 2  |  <h2>Header 2</h2>  |   Header 2 |
+|  ### Header 3  |  <h3>Header 3</h3>  |   Header 3  |
+|  #### Header 4  |  <h4>Header 4</h4>  |   Header 4  |
+| ====== | ====== | =====: |
+| Footer | Footer | Footer |
+
 #### Các bước tạo bài viết
 ## Các lỗi thường gặp và cách fix
 * Lỗi abc 
