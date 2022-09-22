@@ -48,32 +48,46 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
   ```shell
   sudo apt-get install ruby-full build-essential zlib1g-dev
   ```
+  
+  ![image4](/assets/img/Screenshot from 2022-09-22 08-45-16.png)
+  
   ```shell
   echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
   echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
   echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
   source ~/.bashrc
   ```
+  
+  ![image5](/assets/img/Screenshot from 2022-09-22 08-45-29.png)
+  
   ```shell
   gem install jekyll bundler
   ```
+  ![image6](/assets/img/Screenshot from 2022-09-22 08-45-29.png)
+  
 ### Config code
-Clone source code về máy để config
+* Clone source code về máy để config
 ```shell
 git clone https://github.com/tlqbao/tlqbao.github.io.git
 ```
 ```shell
 cd tlqbao.github.io.git
 ```
-Cài đặt các gói phụ thuộc
+* Cài đặt các gói phụ thuộc
 ```shell
 bundler
 ```
-Run local host
+![image7](/assets/img/Screenshot from 2022-09-22 08-48-48.png)
+
+* Run local host
 ```shell
 bundle exec jekyll s
 ```
-Bạn sẽ tìm thấy hướng dẫn cụ thể cho việc config template này ở [https://github.com/cotes2020/jekyll-theme-chirpy#documentation](https://github.com/cotes2020/jekyll-theme-chirpy#documentation)
+![image8](/assets/img/Screenshot from 2022-09-22 08-50-58.png)
+
+![image9](/assets/img/Screenshot from 2022-09-22 08-52-15.png)
+
+* Bạn sẽ tìm thấy hướng dẫn cụ thể cho việc config template này ở [https://github.com/cotes2020/jekyll-theme-chirpy#documentation](https://github.com/cotes2020/jekyll-theme-chirpy#documentation)
 
 Trong bài viết này sẽ chỉ đề cập đến việc config những phần cơ bản, bạn có thể xem và config sâu hơn tùy ý theo tài liệu.
 Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
@@ -97,9 +111,20 @@ Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
 
   timezone: Asia/Ho_Chi_Minh
   
-* 
+* tagline (line 26)
+
+  tagline : <câu nói yêu thích của bạn hây bất cứ thứ gì đó ...> 
+  
 
 ### Deploy blog
+* Tạo commit và push code
+  ```shell
+  git add .
+  git status
+  git commit -m "first config"
+  git push origin main
+  ```
+* 
 ### Thêm miền tùy chỉnh
 #### Có SSL
 #### Không SSL
