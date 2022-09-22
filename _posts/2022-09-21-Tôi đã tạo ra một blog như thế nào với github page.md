@@ -148,9 +148,12 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
 ### Thêm miền tùy chỉnh
 #### Có SSL
 * Domain porkbun
+  
 
 #### Không SSL
 * Domain venom
+  ![image16](/assets/img/Screenshot from 2022-09-22 20-21-24.png)
+  ![image17](/assets/img/Screenshot from 2022-09-22 20-21-52.png)
 
 ### Tạo bài viết đầu tiên
 #### Giới thiệu ngôn ngữ Maskdown
