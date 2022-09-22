@@ -155,5 +155,6 @@ Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
 ## Các lỗi thường gặp và cách fix
 * Lỗi abc 
 * Lỗi xyz 
+
 ## Tương lai
 * Bài viết sẽ liên được cập nhật thường xuyên.
