@@ -69,6 +69,7 @@ Một bài viết đầy đủ từ tạo, config, nâng cấp và deploy web l�
   ```shell
   deactivate 
   ```
+  
 ### Cài đặt các thư viện yêu cầu 
 
   Để thuận tiện cho quá trình thêm và cài đặt các thư viện yêu cầu cần thiết trong dự trên venv chúng ta nên tạo file requirements.txt. Ở đây chúng ta    không sử dụng "pip freeze" tránh trường hợp cài quá nhiều thư viện không cần thiết.
