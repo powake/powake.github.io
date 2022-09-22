@@ -1,16 +1,16 @@
 ---
-title: Phân loại âm thanh (P1)
+title: Phân loại âm thanh (P2)
 author: huynhlevu
-date: 2022-09-20
+date: 2022-09-22
 categories: [Python,Machine-learning]
 tags: [ML, AI]
 math: true
 mermaid: true
 image:
-  path: /assets/img/plat.png
+  path: /assets/img/plat2.jpg
   width: 800
   height: 500
-  alt: Django - framework for web development.
+  alt: Phân loại âm thanh.
 ---
 
 
