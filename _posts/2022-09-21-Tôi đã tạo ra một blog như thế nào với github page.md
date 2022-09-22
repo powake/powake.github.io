@@ -127,15 +127,15 @@ Với các trang GitHub, GitHub cho phép bạn lưu trữ một trang web từ 
   
 * Config git.
 
-  Chọn **Settings ---> **Pages .
+  Chọn **Settings** ---> **Pages**.
   
   ![image11](/assets/img/Screenshot from 2022-09-22 08-56-27.png)
   
-  Ở **Deploy from branch chọn **Github Action .
+  Ở **Deploy** from branch chọn **Github Action**.
   
   ![image12](/assets/img/Screenshot from 2022-09-22 08-59-29.png)
   
-  Ở **Deploy from branch chọn **gh-pages.
+  Ở **Deploy** from branch chọn **gh-pages**.
   
   ![image13](/assets/img/Screenshot from 2022-09-22 10-17-04.png)
   ![image14](/assets/img/Screenshot from 2022-09-22 10-17-22.png)
