@@ -126,11 +126,14 @@ Tất cả các phần tùy chỉnh đều nằm ở file _config.yml
   ```
   ![image10](/assets/img/Screenshot from 2022-09-22 08-54-07.png)
   
-* Config git
-  Chọn **Settings ---> **Pages 
+* Config git.
+* 
+  Chọn **Settings ---> **Pages .
+  
   ![image11](/assets/img/Screenshot from 2022-09-22 08-56-27.png)
   
-  Ở **Deploy from branch chọn **Github Action
+  Ở **Deploy from branch chọn **Github Action .
+  
   ![image12](/assets/img/Screenshot from 2022-09-22 08-59-29.png)
   
 ### Thêm miền tùy chỉnh
