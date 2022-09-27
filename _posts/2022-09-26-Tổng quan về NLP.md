@@ -86,3 +86,8 @@ Có thể sử dụng mạng thần kinh (có thể sâu hoặc nông, tùy thu�
 • Google Cloud Platform (GCP): https://cloud.google.com/
 
 • Amazon Web Services (AWS): https://aws.amazon.com/
+
+# <font color ='red'> Hiểu về Tensorflow 2
+
+## <font color = 'blue'> Tensorflow là gì?
+
