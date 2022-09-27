@@ -90,11 +90,11 @@ Có thể sử dụng mạng thần kinh (có thể sâu hoặc nông, tùy thu�
 
 # <font color ='red'> II.Hiểu về Tensorflow 2
 
-## <font color = 'blue'> Tensorflow là gì?
+## <font color = 'blue'> 1.Tensorflow là gì?
 
 Tensorflow là một nguồn mở, được phát hành bởi Google, chủ yếu nhằm giảm bớt các chi tiết đau đớn khi thực hiện mạng lưới thần kinh (ví dụ, tính toán các dẫn xuất (derivatives) của trọng lượng của mạng lưới thần kinh). TensorFlow tiến thêm một bước bằng cách cung cấp các triển khai hiệu quả các tính toán số đó bằng cách sử dụng kiến trúc thiết bị hợp nhất tính toán (CUDA), là một nền tảng tính toán song song được NVIDIA giới thiệu. 
 
-### <font color = 'blue'> Bắt đầu với TensorFlow 2
+### <font color = 'blue'> 2.Bắt đầu với TensorFlow 2
 
 Bây giờ, hãy để tìm hiểu về một vài thành phần thiết yếu trong khung TensorFlow bằng cách làm việc thông qua một ví dụ về mã. Hãy để viết một ví dụ để thực hiện tính toán sau, điều này rất phổ biến đối với các mạng thần kinh:
 
@@ -210,7 +210,7 @@ b = tf.Variable(init_b, dtype=tf.float32, name='b')
 h = layer(x,W,b)
 print(f"h = {h.numpy()}")
 ```
-## <font color = 'blue'> Đầu vào, biến, đầu ra và operation
+## <font color = 'blue'> 3.Đầu vào, biến, đầu ra và operation
 
 • Đầu vào: Dữ liệu được sử dụng để đào tạo và kiểm tra các thuật toán của chúng tôi 
 
@@ -230,3 +230,42 @@ Có ba cách khác nhau mà bạn có thể cung cấp dữ liệu cho chương 
 • Tạo dữ liệu dưới dạng tenorflow tensors 
 
 • Sử dụng API TF.DATA để tạo đường ống đầu vào 
+
+### <font color = 'green'> Định nghĩa biến trong Tensorflow
+Các biến đóng một vai trò quan trọng trong tensorflow. Một biến về cơ bản là một tenxơ với hình dạng cụ thể xác định có bao nhiêu kích thước mà biến sẽ có và kích thước của mỗi chiều. Tuy nhiên, không giống như một tenxơ tenorflow thông thường, các biến có thể thay đổi; nghĩa là giá trị của các biến có thể thay đổi sau khi chúng được xác định. Đây là một thuộc tính lý tưởng để phải thực hiện các tham số của mô hình học tập (ví dụ: trọng lượng mạng thần kinh), trong đó các trọng số thay đổi một chút sau mỗi bước học tập. Ví dụ: nếu bạn xác định một biến có x = tf.varable (0, dtype = tf.int32), bạn có thể thay đổi giá trị của biến đó bằng cách sử dụng hoạt động tenorflow như tf.assign (x, x+1). Tuy nhiên, nếu bạn xác định một tenxơ như x = tf.constant (0, dtype = tf.int32), bạn không thể thay đổi giá trị của tenxơ, như bạn có thể cho một biến. Nó sẽ ở lại 0 cho đến khi kết thúc việc thực hiện chương trình.
+
+Tạo biến là khá đơn giản. Trong ví dụ sigmoid của chúng ta, chúng ta đã tạo hai biến, W và b. Khi tạo ra một biến, một vài điều là vô cùng quan trọng. Chúng ta sẽ liệt kê chúng ở đây và thảo luận chi tiết trong các đoạn sau:
+
+- Hình dạng biến 
+- Giá trị ban đầu 
+- Kiểu dữ liệu 
+- Tên (Tùy chọn)
+
+Hình dạng biến là một danh sách của định dạng [x, y, z, ...]. Mỗi giá trị trong danh sách cho biết kích thước hoặc trục tương ứng lớn như thế nào. Chẳng hạn, nếu bạn yêu cầu tenxơ 2D với 50 hàng và 10 cột làm biến, hình dạng sẽ bằng [50,10].
+
+Kích thước của biến (nghĩa là độ dài của vectơ hình dạng) được công nhận là thứ hạng của tensor trong tenorflow.
+
+Tiếp theo, một biến yêu cầu một giá trị ban đầu phải được khởi tạo. TensorFlow cung cấp một số bộ khởi tạo khác nhau, bao gồm các bộ khởi tạo không đổi và bộ khởi tạo phân phối bình thường. Dưới đây là một vài bộ khởi tạo TensorFlow phổ biến mà bạn có thể sử dụng để khởi tạo các biến:
+
+- tf.initializers.Zeros
+- tf.initializers.Constant
+- tf.initializers.RandomNormal
+- tf.initializers.GlorotUniform
+
+Hình dạng của biến có thể được cung cấp như là một phần của trình khởi tạo như sau:
+
+```python
+tf.initializers.RandomUniform(minval=-0.1, maxval=0.1)(shape=[10,5])
+```
+
+Kiểu dữ liệu đóng một vai trò quan trọng trong việc xác định kích thước của một biến. Có nhiều loại dữ liệu khác nhau, bao gồm TF.Bool, TF.Uint8, TF.Float32 và TF.INT32. Mỗi loại dữ liệu có một số bit cần thiết để biểu diễn một giá trị duy nhất với loại đó. Ví dụ, tf.uint8 yêu cầu 8 bit, trong khi tf.float32 yêu cầu 32 bit. Đó là thực tế phổ biến để sử dụng các loại dữ liệu tương tự cho các tính toán, vì làm cách khác có thể dẫn đến sự không phù hợp của kiểu dữ liệu. Vì vậy, nếu bạn có hai loại dữ liệu khác nhau cho hai tenxor mà bạn cần chuyển đổi, bạn phải chuyển đổi rõ ràng một tenxơ sang loại tenxơ khác bằng cách sử dụng thao tác tf.cast (...).
+
+Hoạt động tf.cast (...) được thiết kế để đối phó với các tình huống như vậy. Ví dụ: nếu bạn có biến X với loại tf.int32, cần được chuyển đổi thành tf.float32, sử dụng tf.cast(x, dtype = tf.float32) để chuyển đổi x thành tf.float32.
+
+Cuối cùng, tên của biến sẽ được sử dụng làm ID để xác định biến đó trong biểu đồ. Nếu bạn đã từng trực quan hóa biểu đồ tính toán, biến sẽ xuất hiện bằng đối số được chuyển đến tên từ khóa. Nếu bạn không chỉ định tên, TensorFlow sẽ sử dụng sơ đồ đặt tên mặc định.
+
+```python
+a = tf.Variable(tf.zeros([5]),name='b')
+```
+
+Ở đây, biểu đồ tenorflow sẽ biết biến này bằng tên b chứ không phải a
