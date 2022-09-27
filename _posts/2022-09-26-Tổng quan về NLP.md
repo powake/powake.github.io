@@ -711,9 +711,9 @@ Các đối số được mong đợi bởi hàm evaluate() đã được đề 
 
 Bạn sẽ bị loss 0,138 và độ chính xác là 98%. Bạn sẽ không nhận được các giá trị chính xác giống nhau do sự ngẫu nhiên khác nhau trong mô hình, cũng như trong quá trình đào tạo
 
-# <font color = 'red'> Word2vec
+# <font color = 'red'> III.Word2vec
   
-## <font color = 'yellow'> Giới thiệu
+## <font color = 'yellow'> 1.Giới thiệu
 
 Word2vec là một mô hình đơn giản và nổi tiếng giúp tạo ra các biểu diễn embedding của từ trong một không gian có số chiều thấp hơn nhiều lần so với số từ trong từ điển.
 
@@ -723,7 +723,7 @@ Word2vec là một mô hình đơn giản và nổi tiếng giúp tạo ra các 
 
 - Ta có thể đoán được một từ nếu biết các từ xung quanh nó trong câu. Ví dụ, với câu “Hà Nội là … của Việt Nam” thì từ trong dấu ba chấm khả năng cao là “thủ đô”. Với câu hoàn chỉnh “Hà Nội là thủ đô của Việt Nam”, mô hình word2vec sẽ xây dựng ra embeding của các từ sao cho xác suất để từ trong dấu ba chấm là “thủ đô” là cao nhất.
 
-## <font color = 'blue'> Một vài định nghĩa
+## <font color = 'blue'> 2.Một vài định nghĩa
 
 Trong ví dụ trên đây, từ “thủ đô” đang được xét và được gọi là target word hay từ đích. Những từ xung quanh nó được gọi là context words hay từ ngữ cảnh. Với mỗi từ đích trong một câu của cơ sở dữ liệu, các từ ngữ cảnh được định nghĩa là các từ trong cùng câu có vị trí cách từ đích một khoảng không quá C/2 với C là một số tự nhiên dương. Như vậy, với mỗi từ đích, ta sẽ có một bộ không quá C từ ngữ cảnh.
 
@@ -743,13 +743,13 @@ Có hai cách khác nhau xây dựng mô hình word2vec:
 
 Mỗi cách có những ưu nhược điểm khác nhau và áp dụng với những loại dữ liệu khác nhau.
 
-## <font color = 'blue'> Skip-gram 
+## <font color = 'blue'> 3.Skip-gram 
 
 Mô hình skip-gram liên tục học bằng cách dự đoán các từ xung quanh được đưa ra một từ hiện tại. Nói cách khác, Mô hình Skip-Gram liên tục dự đoán các từ trong một phạm vi nhất định trước và sau từ hiện tại trong cùng một câu.
 
 skip-gram dự đoán ngữ cảnh hoặc các từ lân cận cho một từ nhất định. Mô hình Skip-Gram được đào tạo trên các cặp n-gram (target_word, context_word) với mã thông báo là 1 và 0. Mã thông báo chỉ định xem context_words đến từ cùng một cửa sổ hay được tạo ngẫu nhiên. Cặp có mã thông báo 0 bị bỏ qua.
 
-## <font color = 'blue'> Mã triển khai mô hình Skip-Gram
+### <font color = 'green'> Mã triển khai mô hình Skip-Gram
 
 Các bước cần tuân theo:
 
@@ -781,5 +781,32 @@ from keras.models import Model,Sequential
 nltk.download('gutenberg')
 nltk.download('punkt')
 nltk.download('stopwords')
-```
+# english là ngôn ngữ bạn chọn
 stop_words = nltk.corpus.stopwords.words('english')
+```
+
+*Quá trình chuyển đổi dữ liệu sang một thứ mà máy tính có thể hiểu được gọi là tiền xử lý. Một trong những hình thức xử lý trước chính là lọc ra những dữ liệu vô dụng. Trong xử lý ngôn ngữ tự nhiên, những từ vô ích (dữ liệu), được gọi là những từ dừng(stop words). Từ dừng là một từ thường được sử dụng (chẳng hạn như “the”, “a”, “an”, “in”) mà công cụ tìm kiếm đã được lập trình để bỏ qua.*
+
+![](/assest/img/NLP16.png)
+  
+Chúng ta sử dụng chức năng do người dùng xác định để xử lý sơ bộ văn bản giúp loại bỏ các khoảng trắng, chữ số, từ dừng và viết tắt thân văn bản
+
+```python
+import re
+bible = gutenberg.sents("bible-kjv.txt")
+remove_terms = punctuation + '0123456789'
+wpt = nltk.WordPunctTokenizer()
+def normalize_document(doc):
+    # lower case and remove special characters\whitespaces
+    doc = re.sub(r'[^a-zA-Z\s]', '', doc,re.I|re.A)
+    doc = doc.lower()
+    doc = doc.strip()
+    # tokenize document
+    tokens = wpt.tokenize(doc)
+    # filter stopwords out of document
+    filtered_tokens = [token for token in tokens if token not in stop_words]
+    # re-create document from filtered tokens
+    doc = ' '.join(filtered_tokens)
+    return doc
+normalize_corpus = np.vectorize(normalize_document)
+```
