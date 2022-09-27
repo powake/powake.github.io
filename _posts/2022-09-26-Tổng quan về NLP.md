@@ -94,7 +94,7 @@ Có thể sử dụng mạng thần kinh (có thể sâu hoặc nông, tùy thu�
 
 Tensorflow là một nguồn mở, được phát hành bởi Google, chủ yếu nhằm giảm bớt các chi tiết đau đớn khi thực hiện mạng lưới thần kinh (ví dụ, tính toán các dẫn xuất (derivatives) của trọng lượng của mạng lưới thần kinh). TensorFlow tiến thêm một bước bằng cách cung cấp các triển khai hiệu quả các tính toán số đó bằng cách sử dụng kiến trúc thiết bị hợp nhất tính toán (CUDA), là một nền tảng tính toán song song được NVIDIA giới thiệu. 
 
-### <font color = 'blue'> 2.Bắt đầu với TensorFlow 2
+## <font color = 'blue'> 2.Bắt đầu với TensorFlow 2
 
 Bây giờ, hãy để tìm hiểu về một vài thành phần thiết yếu trong khung TensorFlow bằng cách làm việc thông qua một ví dụ về mã. Hãy để viết một ví dụ để thực hiện tính toán sau, điều này rất phổ biến đối với các mạng thần kinh:
 
@@ -279,11 +279,11 @@ x = tf.matmul(w,A)
 y = x + B
 ```
 
-### <font color = 'green'> Defining operations in TensorFlow
+### <font color = 'green'> Định nghĩa operations trong TensorFlow
 
 Một hoạt động trong TensorFlow có một hoặc nhiều đầu vào và tạo ra một hoặc nhiều đầu ra. Nếu bạn xem API TensorFlow tại https://www.tensorflow.org/api_docs/python/tf, bạn sẽ thấy TensorFlow có một bộ sưu tập hoạt động lớn. Ở đây, chúng tôi sẽ xem xét một vài trong số các hoạt động vô số tenorflow.
 
-#### <font color = 'pink'> Comparison operations
+#### <font color = 'pink'> Hoạt động so sánh
 
 Hoạt động so sánh rất hữu ích để so sánh hai tensor. Ví dụ mã sau đây bao gồm một vài hoạt động so sánh hữu ích.
 
@@ -303,7 +303,7 @@ condition = tf.constant([[True,False],[True,False]],dtype=tf.bool)
 x_cond_y = tf.where(condition, x, y, name=None)
 ```
 
-#### <font color='pink'> Mathematical operations
+#### <font color='pink'> Hoạt động toán học
 
 TensorFlow cho phép bạn thực hiện các thao tác toán học trên các tenxơ từ đơn giản đến phức tạp. Bộ hoạt động hoàn chỉnh có sẵn tại https://www.tensorflow.org/versions/r2.0/ api_docs/python/tf/math:
 
@@ -378,7 +378,7 @@ t[1:,0].numpy()
 
 Không giống như hoạt động phân tán, hoạt động tập hợp hoạt động cả trên các cấu trúc TF.Varable và TF.Tensor.
 
-## <font color = 'blue'> Operation liên quan đến mạng thần kinh
+## <font color = 'blue'> 4.Operation liên quan đến mạng thần kinh
 
 Bây giờ, hãy xem xét một số hoạt động liên quan đến mạng thần kinh hữu ích mà chúng ta sẽ sử dụng rất nhiều trong các chương sau. Các hoạt động mà chúng tôi sẽ thảo luận ở đây bao gồm từ các biến đổi phần tử đơn giản (nghĩa là kích hoạt) đến tính toán các dẫn xuất một phần của một tập hợp các tham số đối với giá trị khác. Chúng ta cũng sẽ triển khai một mạng lưới thần kinh đơn giản.
 
@@ -418,3 +418,99 @@ tf.nn.relu(x, name=None)
 ```
 
 ![](/assets/img/NLP8.png)
+  
+### <font color = 'green'> Convolution operation
+
+Một hoạt động tích chập là một kỹ thuật xử lý tín hiệu được sử dụng rộng rãi. Đối với hình ảnh, tích chập được sử dụng để tạo ra các hiệu ứng khác nhau (như làm mờ) hoặc trích xuất các tính năng (như các cạnh) từ một hình ảnh. Một ví dụ về phát hiện cạnh bằng cách sử dụng tích chập được hiển thị trong Hình dưới. Điều này đạt được bằng cách chuyển một bộ lọc tích chập của hình ảnh để tạo ra một đầu ra khác nhau ở mỗi vị trí. Cụ thể, tại mỗi vị trí, chúng tôi thực hiện phép nhân phần tử của các phần tử trong bộ lọc tích chập với bản vá hình ảnh (image patch) (cùng kích thước với bộ lọc tích chập) trùng với bộ lọc tích chập và lấy tổng của phép nhân
+  
+![](/assets/img/NLP9.png)
+  
+Sau đây là việc thực hiện hoạt động tích chập
+
+```python
+x = tf.constant(
+ [[
+ [[1],[2],[3],[4]],
+ [[4],[3],[2],[1]],
+ [[5],[6],[7],[8]],
+ [[8],[7],[6],[5]]
+ ]],
+ dtype=tf.float32)
+x_filter = tf.constant(
+ [ [ [[0.5]],[[1]] ],
+ [ [[0.5]],[[1]] ]
+ ],
+ dtype=tf.float32)
+x_stride = [1,1,1,1]
+x_padding = 'VALID'
+x_conv = tf.nn.conv2d(
+ input=x, filters=x_filter, strides=x_stride, padding=x_padding
+)
+```
+  
+Đối với hoạt động tf.nn.conv2d (...), TensorFlow yêu cầu đầu vào, bộ lọc và sải bước ( input, filters, and strides ) có định dạng chính xác. Bây giờ chúng ta sẽ đi qua từng đối số trong tf.conv2d (đầu vào, bộ lọc, sải chân, đệm) ((input, filters, strides, padding)) chi tiết hơn:
+
+Input : Đây thường là một tenxơ 4D trong đó các kích thước nên được đặt dưới dạng [batch_size, height, width, channels]:
+- Batch_Size: Đây là lượng dữ liệu (ví dụ: các đầu vào như hình ảnh và từ) trong một lô dữ liệu. Chúng ta thường xử lý dữ liệu theo lô vì các bộ dữ liệu lớn được sử dụng để học. Ở một bước đào tạo nhất định, chúng ta lấy mẫu ngẫu nhiên một lô dữ liệu nhỏ đại diện cho bộ dữ liệu đầy đủ. Và làm điều này cho nhiều bước cho phép chúng ta xấp xỉ bộ dữ liệu đầy đủ khá tốt. Tham số Batch_Size này giống như tham số chúng ta đã thảo luận trong ví dụ đường ống đầu vào TensorFlow.
+- Height and width: Đây là chiều cao và chiều rộng của đầu vào
+- Chanels: Đây là độ sâu của đầu vào (ví dụ: đối với hình ảnh RGB, số lượng kênh sẽ là 3 kênh, một kênh cho mỗi màu).
+
+Bộ lọc: Đây là một tenxơ 4D đại diện cho cửa sổ tích chập của hoạt động tích chập. Kích thước bộ lọc phải là [height, width, in_channels, out_channels]:
+- Height and width: Đây là chiều cao và chiều rộng của bộ lọc (thường nhỏ hơn so với đầu vào)
+- in_channels: Đây là số lượng kênh đầu vào cho lớp
+- out_channels: Đây là số lượng kênh được sản xuất trong đầu ra của lớp
+
+strides: Đây là danh sách với bốn yếu tố, trong đó các phần tử là [batch_stride, height_stride, width_stride, channels_stride]. Đối số Strides biểu thị có bao nhiêu phần tử cần bỏ qua trong một dịch chuyển của cửa sổ tích chập trên đầu vào. Thông thường, bạn không phải lo lắng về Batch_Stride và channels_stride. Nếu bạn không hoàn toàn hiểu strides (bước tiến) là gì, bạn có thể sử dụng giá trị mặc định là 1.
+
+Padding: Đây có thể là một trong số ['SAME', 'VALID']. Nó quyết định làm thế nào để xử lý hoạt động tích chập gần ranh giới của đầu vào. Các hoạt động hợp lệ (VALID) thực hiện tích chập mà không cần đệm (padding). Nếu chúng ta kết hợp một đầu vào có độ dài n với một cửa sổ tích chập có kích thước H, điều này sẽ dẫn đến đầu ra có kích thước (N-H+1 <N). Việc giảm kích thước đầu ra có thể hạn chế nghiêm trọng độ sâu của mạng lưới thần kinh. SAME thêm các số 0 đến ranh giới sao cho đầu ra sẽ có cùng chiều cao và chiều rộng với đầu vào.
+
+Để hiểu rõ hơn về kích thước bộ lọc, sải chân và đệm (filter size, stride, and padding), tham khảo hình dưới
+
+![](/assets/img/NLP10.png)
+
+![](/assets/img/NLP11.png)
+
+![](/assets/img/NLP12.png)
+
+### <font color = 'green'> Pooling operation
+
+Một hoạt động gộp (pooling operation) hoạt động tương tự như hoạt động tích chập, nhưng đầu ra cuối cùng là khác nhau. Thay vì xuất tổng số nhân của bộ lọc và bản vá hình ảnh, giờ đây chúng ta lấy phần tử tối đa của bản vá hình ảnh cho vị trí đó.
+
+```python
+x = tf.constant(
+ [[
+ [[1],[2],[3],[4]],
+ [[4],[3],[2],[1]],
+ [[5],[6],[7],[8]],
+ [[8],[7],[6],[5]]
+ ]],
+ dtype=tf.float32)
+x_ksize = [1,2,2,1]
+x_stride = [1,2,2,1]
+x_padding = 'VALID'
+x_pool = tf.nn.max_pool2d(
+ input=x, ksize=x_ksize,
+ strides=x_stride, padding=x_padding
+)
+# Returns (out) => [[[[ 4.],[ 4.]],[[ 8.],[ 8.]]]]
+```
+![](/assets/img/NLP13.png)
+  
+### <font color = 'green'> Định nghĩa mất mát
+
+Chúng ta biết rằng, đối với một mạng lưới thần kinh để học một cái gì đó hữu ích, một mất mát cần phải được xác định. Sự mất mát thể hiện mức độ gần hoặc xa các dự đoán từ các mục tiêu thực tế. Có một số chức năng để tự động tính toán tổn thất trong tensorflow, hai trong số đó được hiển thị trong mã sau. Hàm tf.nn.l2_loss là mất lỗi bình phương trung bình (mean squared error loss) và tf.nn.softmax_cross_entropy_with_logits là một loại tổn thất khác thực sự mang lại hiệu suất tốt hơn trong các tác vụ phân loại. 
+
+```python
+# Returns half of L2 norm of t given by sum(t**2)/2
+x = tf.constant([[2,4],[6,8]],dtype=tf.float32)
+x_hat = tf.constant([[1,2],[3,4]],dtype=tf.float32)
+# MSE = (1**2 + 2**2 + 3**2 + 4**2)/2 = 15
+MSE = tf.nn.l2_loss(x-x_hat)
+
+y = tf.constant([[1,0],[0,1]],dtype=tf.float32)
+y_hat = tf.constant([[3,1],[2,5]],dtype=tf.float32)
+
+CE = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_hat,labels=y))
+```
+
+## <font color = 'blue'> 5.Keras: API xây dựng mô hình của Tensorflow
