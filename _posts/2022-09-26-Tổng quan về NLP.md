@@ -268,4 +268,153 @@ Cuối cùng, tên của biến sẽ được sử dụng làm ID để xác đ�
 a = tf.Variable(tf.zeros([5]),name='b')
 ```
 
-Ở đây, biểu đồ tenorflow sẽ biết biến này bằng tên b chứ không phải a
+Ở đây, biểu đồ tensorflow sẽ biết biến này bằng tên b chứ không phải a
+
+### <font color = 'green'> Định nghĩa đầu ra trong Tensorflow
+
+Đầu ra tenorflow thường là tensor và kết quả của việc chuyển đổi thành đầu vào hoặc một biến hoặc cả hai. Trong ví dụ của chúng ta, h là đầu ra, trong đó h = tf.nn.sigmoid (tf.matmul (x, w) + b). Cũng có thể cung cấp các đầu ra như vậy cho các hoạt động khác, tạo thành một tập hợp các hoạt động chuỗi. Hơn nữa, không nhất thiết phải là hoạt động tensorflow. Bạn cũng có thể sử dụng số học python tiêu chuẩn với tensorflow. Đây là một ví dụ:
+
+```python
+x = tf.matmul(w,A)
+y = x + B
+```
+
+### <font color = 'green'> Defining operations in TensorFlow
+
+Một hoạt động trong TensorFlow có một hoặc nhiều đầu vào và tạo ra một hoặc nhiều đầu ra. Nếu bạn xem API TensorFlow tại https://www.tensorflow.org/api_docs/python/tf, bạn sẽ thấy TensorFlow có một bộ sưu tập hoạt động lớn. Ở đây, chúng tôi sẽ xem xét một vài trong số các hoạt động vô số tenorflow.
+
+#### <font color = 'pink'> Comparison operations
+
+Hoạt động so sánh rất hữu ích để so sánh hai tensor. Ví dụ mã sau đây bao gồm một vài hoạt động so sánh hữu ích.
+
+```python
+import tensorflow as tf
+x = tf.constant([[1,2],[3,4]], dtype=tf.int32)
+y = tf.constant([[4,3],[3,2]], dtype=tf.int32)
+
+x_equal_y = tf.equal(x, y, name=None)
+
+x_less_y = tf.less(x, y, name=None)
+
+x_great_equal_y = tf.greater_equal(x, y, name=None)
+
+condition = tf.constant([[True,False],[True,False]],dtype=tf.bool)
+
+x_cond_y = tf.where(condition, x, y, name=None)
+```
+
+#### <font color='pink'> Mathematical operations
+
+TensorFlow cho phép bạn thực hiện các thao tác toán học trên các tenxơ từ đơn giản đến phức tạp. Bộ hoạt động hoàn chỉnh có sẵn tại https://www.tensorflow.org/versions/r2.0/ api_docs/python/tf/math:
+
+```python
+x = tf.constant([[1,2],[3,4]], dtype=tf.float32)
+y = tf.constant([[4,3],[3,2]], dtype=tf.float32)
+
+x_add_y = tf.add(x, y)
+
+x_mul_y = tf.matmul(x, y)
+
+log_x = tf.log(x)
+
+x_sum_1 = tf.reduce_sum(x, axis=[1], keepdims=False)
+
+x_sum_2 = tf.reduce_sum(x, axis=[0], keepdims=True)
+
+data = tf.constant([1,2,3,4,5,6,7,8,9,10], dtype=tf.float32)
+segment_ids = tf.constant([0,0,0,1,1,2,2,2,2,2 ], dtype=tf.int32)
+
+x_seg_sum = tf.segment_sum(data, segment_ids)
+```
+
+#### <font color = 'pink'> Cập nhật giá trị trong các tensor
+
+Một hoạt động phân tán (scatter operation), đề cập đến việc thay đổi các giá trị tại một số chỉ số nhất định của một tensor, là rất phổ biến trong các vấn đề điện toán khoa học. Chức năng này ban đầu được cung cấp thông qua hàm tf.scatter_nd() 
+
+Tuy nhiên, trong các phiên bản TensorFlow gần đây, bạn có thể thực hiện các hoạt động phân tán thông qua lập chỉ mục mảng và cắt bằng cú pháp giống như Numpy. Hãy cùng xem một vài ví dụ. Giả sử bạn có TensorFlow biến V, là ma trận [3,2]:
+
+```python
+v = tf.Variable(tf.constant([[1,9],[3,10],[5,11]],
+dtype=tf.float32),name='ref')   
+```
+
+Bạn có thể thay đổi hàng thứ 0 của tenxơ này bằng:
+
+```python
+v[0].assign([-1, -9])
+```
+
+Bạn có thể thay đổi giá trị tại Index [1,1] bằng:
+
+```python
+v[1,1].assign(-10)
+```
+
+Bạn có thể thực hiện cắt hàng với:
+
+```python
+v[1:,0].assign([-3,-5])
+```
+
+#### <font color = 'pink'> Thu thập các giá trị từ một tenor
+
+Một hoạt động tập hợp (gather operation) rất giống với một hoạt động phân tán. Hãy nhớ rằng phân tán là về việc gán các giá trị cho các tensor, trong khi việc thu thập lấy các giá trị của một tensor. Hãy để hiểu điều này thông qua một ví dụ. Giả sử bạn có tenorflow tenor, T:
+
+```python
+t = tf.constant([[1,9],[3,10],[5,11]],dtype=tf.float32)
+```
+
+Bạn có thể có được hàng thứ 0 của T với:
+
+```python
+t[0].numpy()
+```
+
+Bạn cũng có thể thực hiện trượt hàng (row-slicing) với:
+
+```python
+t[1:,0].numpy()
+```
+
+Không giống như hoạt động phân tán, hoạt động tập hợp hoạt động cả trên các cấu trúc TF.Varable và TF.Tensor.
+
+## <font color = 'blue'> Operation liên quan đến mạng thần kinh
+
+Bây giờ, hãy xem xét một số hoạt động liên quan đến mạng thần kinh hữu ích mà chúng ta sẽ sử dụng rất nhiều trong các chương sau. Các hoạt động mà chúng tôi sẽ thảo luận ở đây bao gồm từ các biến đổi phần tử đơn giản (nghĩa là kích hoạt) đến tính toán các dẫn xuất một phần của một tập hợp các tham số đối với giá trị khác. Chúng ta cũng sẽ triển khai một mạng lưới thần kinh đơn giản.
+
+### <font color = 'green'> Kích hoạt phi tuyến được sử dụng bởi các mạng thần kinh
+
+Kích hoạt phi tuyến cho phép các mạng thần kinh hoạt động tốt ở nhiều nhiệm vụ. Thông thường, có một phép biến đổi kích hoạt phi tuyến (nghĩa là lớp kích hoạt) sau mỗi đầu ra lớp trong mạng thần kinh (ngoại trừ lớp cuối cùng). Một phép biến đổi phi tuyến giúp một mạng lưới thần kinh tìm hiểu các mẫu phi tuyến khác nhau có trong dữ liệu. Điều này rất hữu ích cho các vấn đề trong thế giới thực phức tạp, trong đó dữ liệu thường có các mẫu phi tuyến phức tạp hơn, trái ngược với các mẫu tuyến tính. Nếu không dành cho các kích hoạt phi tuyến giữa các lớp, một mạng lưới thần kinh sâu sẽ là một loạt các lớp tuyến tính được xếp chồng lên nhau. Ngoài ra, một tập hợp các lớp tuyến tính về cơ bản có thể được nén vào một lớp tuyến tính lớn hơn.
+
+Tóm lại, nếu không cho các kích hoạt phi tuyến, chúng ta không thể tạo ra một mạng lưới thần kinh với nhiều hơn một lớp.
+
+Tầm quan trọng của việc kích hoạt phi tuyến thông qua một ví dụ. Đầu tiên, hãy nhớ lại việc tính toán cho các mạng thần kinh mà chúng ta đã thấy trong ví dụ SigMoid.
+
+```python
+h = sigmoid(W*x)
+```
+
+Giả sử một mạng lưới thần kinh ba lớp (có W1, W2 và W3 làm trọng số lớp) trong đó mỗi lớp thực hiện tính toán trước đó; Chúng ta có thể tóm tắt tính toán đầy đủ như sau
+
+```python
+h = sigmoid(W3*sigmoid(W2*sigmoid(W1*x)))
+```
+
+Tuy nhiên, nếu chúng ta loại bỏ kích hoạt phi tuyến (nghĩa là sigmoid), chúng ta sẽ nhận được điều này:
+
+```python
+h = (W3 * (W2 * (W1 *x))) = (W3*W2*W1)*x
+```
+
+Vì vậy, không có kích hoạt phi tuyến, ba lớp có thể được đưa xuống một lớp tuyến tính duy nhất
+
+Bây giờ chúng tôi sẽ liệt kê hai kích hoạt phi tuyến ( nonlinear activations) thường được sử dụng trong các mạng thần kinh (nói cách khác là SigMoid và Relu) và cách chúng có thể được thực hiện trong TensorFlow
+
+```python
+# Sigmoid : 1 / (1 + exp(-x))
+tf.nn.sigmoid(x,name=None)
+# ReLU activation : max(0,x)
+tf.nn.relu(x, name=None)
+```
+
+![](/assets/img/NLP8.png)
