@@ -514,3 +514,201 @@ CE = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_hat,labels=
 ```
 
 ## <font color = 'blue'> 5.Keras: API xây dựng mô hình của Tensorflow
+
+Keras được phát triển như một thư viện riêng biệt cung cấp các khối xây dựng cấp cao để xây dựng các mô hình một cách thuận tiện. Ban đầu nó hỗ trợ nhiều phần mềm (ví dụ: Tensorflow và Theano). Tuy nhiên, Tensorflow có được Keras và bây giờ là một phần không thể thiếu trong TensorFlow để xây dựng các mô hình một cách dễ dàng.
+
+Trọng tâm chính của Keras là xây dựng mô hình. Vì vậy, Keras cung cấp một số API khác nhau với mức độ linh hoạt và phức tạp khác nhau. Chọn API phù hợp cho công việc sẽ yêu cầu kiến thức hợp lý về các hạn chế của mỗi API cũng như kinh nghiệm. Các API được cung cấp bởi Keras là:
+
+- API tuần tự (Sequential API) : API dễ sử dụng nhất. Trong API này, bạn chỉ cần xếp các lớp lên nhau để tạo một mô hình. 
+- API chức năng (Functional API) - API chức năng cung cấp tính linh hoạt hơn bằng cách cho phép bạn xác định các mô hình tùy chỉnh có thể có nhiều lớp đầu vào/nhiều lớp đầu ra. 
+- API lớp phụ (Sub-classing API) : API lớp phụ cho phép bạn xác định các lớp/ mô hình có thể tái sử dụng tùy chỉnh là các lớp Python. Đây là API linh hoạt nhất, nhưng nó đòi hỏi sự quen thuộc mạnh mẽ với các hoạt động API và tensorflow thô để sử dụng nó một cách chính xác
+
+Một trong những khái niệm bẩm sinh nhất trong Keras là một mô hình bao gồm một hoặc nhiều lớp được kết nối theo một cách cụ thể. Ở đây, chúng ta sẽ ngắn gọn về mã trông như thế nào, sử dụng các API khác nhau để phát triển các mô hình. Bạn không mong đợi hiểu đầy đủ mã dưới đây. Thay vào đó, tập trung vào kiểu mã để phát hiện ra bất kỳ sự khác biệt nào giữa ba phương pháp
+  
+### <font color = 'green'> Sequential API
+
+Khi sử dụng API tuần tự, bạn chỉ cần xác định mô hình của mình là danh sách các lớp. Ở đây, phần tử đầu tiên trong danh sách là gần nhất với đầu vào, trong đó phần cuối là lớp đầu ra:
+
+```python
+model = tf.keras.Sequential([
+ tf.keras.layers.Dense(500, activation='relu', shape=(784, )),
+ tf.keras.layers.Dense(250, activation='relu'),
+ tf.keras.layers.Dense(10, activation='softmax')
+ ])
+```
+
+Trong mã trước, chúng tôi có ba lớp. Lớp đầu tiên có 500 nút đầu ra và lấy một vectơ gồm 784 phần tử làm đầu vào. Lớp thứ hai được tự động kết nối với lớp thứ nhất, trong khi lớp cuối cùng được kết nối với lớp thứ hai. Tất cả các lớp này là các lớp được kết nối đầy đủ, trong đó tất cả các nút đầu vào được kết nối với tất cả các nút đầu ra.
+
+### <font color = 'green'> Functional API
+
+Trong API chức năng, chúng ta làm mọi thứ khác nhau. Trước tiên chúng ta xác định một hoặc nhiều lớp đầu vào và các lớp khác mang tính toán. Sau đó, chúng tôi kết nối các đầu vào với đầu ra, như được hiển thị trong mã sau:
+
+```python
+inp = tf.keras.layers.Input(shape=(784,))
+out_1 = tf.keras.layers.Dense(500, activation='relu')(inp)
+out_2 = tf.keras.layers.Dense(250, activation='relu')(out_1)
+out = tf.keras.layers.Dense(10, activation='softmax')(out_2)
+model = tf.keras.models.Model(inputs=inp, outputs=out)
+```
+
+Trong mã, chúng ta bắt đầu với một lớp đầu vào chấp nhận vectơ dài 784 phần tử. Đầu vào được truyền đến một lớp dày đặc có 500 nút. Đầu ra của lớp đó được gán cho out_1. Sau đó out_1 được chuyển cho một lớp dày đặc khác, xuất ra out_2. Tiếp theo, một lớp dày đặc với 10 nút đầu ra đầu ra cuối cùng. Cuối cùng, mô hình được định nghĩa là đối tượng tf.keras.models.Model có hai đối số:
+
+- inputs - một hoặc nhiều lớp đầu vào  
+- outputs - một hoặc nhiều đầu ra được tạo bởi bất kỳ tf.keras.layers loại đối tượng
+
+Mô hình giống hệt với những gì được xác định trong phần trước. Một trong những lợi ích của API chức năng là bạn có thể tạo các mô hình phức tạp hơn nhiều vì bạn không bị ràng buộc để có các lớp như một danh sách. Vì sự tự do này, bạn có thể có nhiều đầu vào kết nối với nhiều lớp theo nhiều cách khác nhau và có khả năng tạo ra nhiều đầu ra.
+
+
+
+### <font color = 'green'> Sub-classing API
+
+Cuối cùng, chúng ta sẽ sử dụng API lớp phụ để xác định mô hình. Với lớp phụ, bạn xác định mô hình của mình là một đối tượng Python kế thừa từ đối tượng cơ sở tf.keras.model. Khi sử dụng lớp phụ, bạn cần xác định hai hàm quan trọng: __init __ (), sẽ chỉ định bất kỳ tham số, lớp đặc biệt nào, và do đó cần thiết để thực hiện thành công các tính toán và hàm  call() xác định các tính toán cần phải xảy ra trong mô hình:
+
+```python
+class MyModel(tf.keras.Model):
+    def __init__(self, num_classes):
+        super().__init__()
+        self.hidden1_layer = tf.keras.layers.Dense(500, activation='relu')
+        self.hidden2_layer = tf.keras.layers.Dense(250, activation='relu')
+        self.final_layer = tf.keras.layers.Dense(num_classes,
+        activation='softmax')
+    def call(self, inputs):
+        h = self.hidden1_layer(inputs)
+        h = self.hidden2_layer(h)
+        y = self.final_layer(h)
+        return y
+
+
+model = MyModel(num_classes=10)
+```
+  
+Ở đây, bạn có thể thấy rằng mô hình của chúng ta có ba lớp, giống như tất cả các mô hình trước đó chúng ta đã xác định. Tiếp theo, hàm call() xác định cách các lớp này kết nối để tạo ra đầu ra cuối cùng. API lớp phụ được coi là khó khăn nhất để làm chủ, chủ yếu là do sự tự do. Tuy nhiên, phần thưởng là rất lớn khi bạn tìm hiểu API vì nó cho phép bạn xác định các mô hình/lớp rất phức tạp là các tính toán đơn vị có thể được sử dụng lại sau đó. Bây giờ bạn đã hiểu cách mỗi API hoạt động, hãy để thực hiện một mạng lưới thần kinh bằng cách sử dụng Keras và đào tạo nó trên một bộ dữ liệu.
+ 
+## <font color = 'blue'> Thực hiện mạng neural network đầu tiên của chúng ta
+
+Một trong những bước đệm để giới thiệu các mạng thần kinh là triển khai một mạng lưới thần kinh có khả năng phân loại các chữ số. Đối với nhiệm vụ này, chúng tôi sẽ sử dụng bộ dữ liệu MNIST nổi tiếng được cung cấp tại http://yann.lecun.com/exdb/mnist/.
+
+Bạn có thể cảm thấy một chút hoài nghi về việc chúng ta sử dụng nhiệm vụ tầm nhìn máy tính hơn là một nhiệm vụ NLP. Tuy nhiên, các nhiệm vụ tầm nhìn có thể được thực hiện với ít tiền xử lý hơn và dễ hiểu.
+
+Vì đây là cuộc gặp gỡ đầu tiên của chúng ta với các mạng thần kinh, chúng ta sẽ thấy cách thực hiện mô hình này bằng cách sử dụng Keras. Keras là mô hình con cấp cao cung cấp một lớp trừu tượng qua tensorflow. Do đó, bạn có thể triển khai các mạng thần kinh với ít nỗ lực hơn với Keras hơn là sử dụng các hoạt động thô của TensorFlow. 
+  
+### <font color = 'green'> Chuẩn bị dữ liệu
+
+Đầu tiên, chúng ta cần tải xuống bộ dữ liệu. TensorFlow cung cấp các chức năng thuận tiện để tải xuống dữ liệu và MNIST là một trong những bộ dữ liệu được hỗ trợ đó. Chúng tôi sẽ thực hiện bốn bước quan trọng trong quá trình chuẩn bị dữ liệu:
+
+- Tải xuống dữ liệu và lưu trữ nó dưới dạng các đối tượng numpy.ndarray. 
+- Định hình lại các hình ảnh để hình ảnh thang độ xám 2D trong bộ dữ liệu sẽ được chuyển đổi thành vectơ 1D. 
+- Tiêu chuẩn hóa các hình ảnh có trung bình không và đơn vị (zero-mean and unit-variance) (còn được gọi là làm trắng). 
+- One-hot encoding nhãn lớp số nguyên. Mã hóa một lần đề cập đến quá trình biểu diễn nhãn lớp số nguyên dưới dạng vectơ. Ví dụ: nếu bạn có 10 lớp và nhãn lớp 3 (trong đó các nhãn nằm trong khoảng từ 0-9), vectơ được mã hóa một lần nóng (One-hot encoding) của bạn sẽ là [0, 0, 0, 1, 0, 0, 0, 0, 0, 0 , 0].
+
+Mã sau đây thực hiện các chức năng này cho chúng tôi:
+
+```python
+os.makedirs('data', exist_ok=True)
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data(
+ path=os.path.join(os.getcwd(), 'data', 'mnist.npz')
+)
+# Reshaping x_train and x_test tensors so that each image is represented
+# as a 1D vector
+x_train = x_train.reshape(x_train.shape[0], -1)
+x_test = x_test.reshape(x_test.shape[0], -1)
+# Standardizing x_train and x_test tensors
+x_train = ( 
+    x_train - np.mean(x_train, axis=1, keepdims=True)
+)/np.std(x_train, axis=1, keepdims=True)
+x_test = ( 
+    x_test - np.mean(x_test, axis=1, keepdims=True)
+)/np.std(x_test, axis=1, keepdims=True)
+# One hot encoding y_train and y_test
+y_onehot_train = np.zeros((y_train.shape[0], num_labels),
+dtype=np.float32)
+y_onehot_train[np.arange(y_train.shape[0]), y_train] = 1.0
+y_onehot_test = np.zeros((y_test.shape[0], num_labels), dtype=np.float32)
+y_onehot_test[np.arange(y_test.shape[0]), y_test] = 1.0
+```
+
+Bạn có thể thấy rằng chúng ta đang sử dụng chức năng tf.keras.datasets.mnist.load_data() do TensorFlow cung cấp để tải xuống dữ liệu đào tạo và kiểm tra. Điều này sẽ cung cấp bốn tensors đầu ra
+
+```python
+- x_train - Một tensor có kích thước 60000 x 28 x 28 trong đó mỗi hình ảnh là 28 x 28
+- y_train - Một vectơ có kích thước 60000, trong đó mỗi phần tử là một nhãn lớp từ 0-9 
+- x_test - Tensor có kích thước 10000 x 28 x 28 
+- y_test - Vectơ có kích thước 10000
+```
+
+Khi dữ liệu được tải xuống, chúng ta định hình lại hình ảnh có kích thước 28 x 28 thành một vectơ 1D. Điều này là do chúng ta sẽ triển khai một mạng lưới thần kinh được kết nối đầy đủ. Các mạng thần kinh được kết nối đầy đủ lấy một vectơ 1D làm đầu vào. Do đó, tất cả các pixel trong hình ảnh sẽ được sắp xếp như một chuỗi các pixel để đưa vào mô hình. Cuối cùng, nếu bạn nhìn vào phạm vi của các giá trị có trong các tensor X_Train và X_Test, chúng sẽ nằm trong phạm vi 0-255 (phạm vi thang độ xám điển hình). Chúng ta sẽ đưa các giá trị này vào phạm vi phương sai đơn vị trung bình bằng không bằng cách trừ trung bình của mỗi hình ảnh và chia cho độ lệch chuẩn.
+ 
+### <font color = 'green'> Triển khai neural network với Keras
+
+Mạng thần kinh được kết nối đầy đủ với 3 lớp có 500, 250 và 10 nút tương ứng. Hai lớp đầu tiên sẽ sử dụng kích hoạt Relu, trong khi lớp cuối cùng sử dụng SoftMax. Để thực hiện điều này, chúng tôi sẽ sử dụng các API KERAS đơn giản nhất có sẵn cho chúng ta - API tuần tự.
+
+```python
+model = tf.keras.Sequential([
+ tf.keras.layers.Dense(500, activation='relu'),
+ tf.keras.layers.Dense(250, activation='relu'),
+ tf.keras.layers.Dense(10, activation='softmax')
+ ])
+```
+
+Bạn có thể thấy rằng tất cả những gì nó cần là một dòng duy nhất trong API tuần tự Keras để xác định mô hình mà chúng ta vừa xác định. Keras cung cấp nhiều loại lớp khác nhau. Bạn có thể thấy danh sách đầy đủ các lớp có sẵn cho bạn tại https://www.tensorflow.org/api_docs/python/tf/keras/layers. Đối với một mạng được kết nối đầy đủ, chúng ta chỉ cần các lớp dày đặc bắt chước các tính toán của một lớp ẩn trong một mạng được kết nối đầy đủ. Với mô hình được xác định, bạn cần biên dịch mô hình này với chức năng tổn thất phù hợp, trình tối ưu hóa và hiệu suất:
+
+```python
+optimizer = tf.keras.optimizers.RMSprop()
+loss_fn = tf.keras.losses.CategoricalCrossentropy()
+model.compile(optimizer=optimizer, loss=loss_fn, metrics=['acc'])
+```
+
+Với mô hình được xác định và biên dịch, giờ đây chúng ta có thể đào tạo mô hình của mình trên dữ liệu đã chuẩn bị.
+
+#### <font color = 'pink'> Training the model
+
+Đào tạo một mô hình không thể dễ dàng hơn với Keras. Khi dữ liệu được chuẩn bị, tất cả những gì bạn cần làm là gọi hàm model.fit () với các đối số cần thiết:
+
+```python
+batch_size = 100
+num_epochs = 10
+train_history = model.fit(
+ x=x_train,
+ y=y_onehot_train,
+ batch_size=batch_size,
+ epochs= num_epochs,
+ validation_split=0.2
+)
+```
+  
+model.fit () chấp nhận một số đối số quan trọng. Chúng ta sẽ đi qua chúng chi tiết hơn ở đây:
+
+- X - Một tenxơ đầu vào. Trong trường hợp của chúng ta, đây là một tenxơ có kích thước 60000 x 784.
+- Y - Nhãn được mã hóa một lần nóng (one-hot encoded). Trong trường hợp của chúng ta, đây là một tenxơ có kích thước 60000 x 10.
+- batch_size - Các mô hình học tập sâu được đào tạo với các lô dữ liệu (nói cách khác, một cách ngẫu nhiên) trái ngược với việc cung cấp cho bộ dữ liệu đầy đủ cùng một lúc. Kích thước lô xác định có bao nhiêu ví dụ được bao gồm trong một lô. Kích thước lô càng lớn, độ chính xác của mô hình của bạn sẽ càng tốt.
+
+- Epochs - Các mô hình học tập sâu lặp lại thông qua bộ dữ liệu theo các lô nhiều lần. Số lần lặp lại thông qua bộ dữ liệu được gọi là số lượng kỷ nguyên. Trong ví dụ của chúng ta, điều này được đặt thành 10.
+- validation_split - Khi đào tạo các mô hình học tập sâu, một bộ xác nhận được sử dụng để theo dõi hiệu suất, trong đó bộ xác thực hoạt động như một proxy cho hiệu suất trong thế giới thực. validation_split xác định số lượng bộ dữ liệu đầy đủ sẽ được sử dụng làm tập hợp con xác thực. Trong ví dụ của chúng ta, điều này được đặt thành 20% tổng kích thước tập dữ liệu
+
+Ở đây, những gì training loss và validation accuracy trông giống như số lượng kỷ nguyên mà chúng ta đã đào tạo mô hình
+
+![](/assets/img/NLP14.png)
+
+Tiếp theo là kiểm tra mô hình của chúng tôi trên một số dữ liệu chưa từng thấy
+
+#### <font color = 'pink'> Kiểm tra model
+
+Kiểm tra mô hình cũng đơn giản. Trong quá trình thử nghiệm, chúng ta đo lường sự mất mát và độ chính xác của mô hình trên bộ dữ liệu thử nghiệm. Để đánh giá mô hình trên bộ dữ liệu, các mô hình Keras cung cấp chức năng thuận tiện gọi là evaluate():
+
+```python
+test_res = model.evaluate(
+    x=x_test,
+    y=y_onehot_test,
+    batch_size=batch_size
+)
+```
+
+Các đối số được mong đợi bởi hàm evaluate() đã được đề cập trong quá trình thảo luận của chúng ta về model.fit ():
+
+- X - một tenxơ đầu vào. Trong trường hợp của chúng ta, đây là một tenxơ có kích thước 10000 x 784. 
+- Y - Nhãn được mã hóa một lần nóng. Trong trường hợp của chúng ta, đây là một tensor kích thước 10000 x 10. 
+- Batch_size - Kích thước lô xác định số lượng ví dụ được bao gồm trong một lô. Kích thước lô càng lớn thì độ chính xác của mô hình của bạn sẽ càng tốt
+
+Bạn sẽ bị loss 0,138 và độ chính xác là 98%. Bạn sẽ không nhận được các giá trị chính xác giống nhau do sự ngẫu nhiên khác nhau trong mô hình, cũng như trong quá trình đào tạo
+
+Trong phần này, chúng tôi đã trải qua một ví dụ từ đầu đến cuối về đào tạo một mạng lưới thần kinh. Chúng tôi đã chuẩn bị dữ liệu, đào tạo mô hình trên dữ liệu đó và cuối cùng đã kiểm tra nó trên một số dữ liệu chưa từng thấy
