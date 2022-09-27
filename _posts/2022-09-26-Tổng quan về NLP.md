@@ -584,7 +584,7 @@ model = MyModel(num_classes=10)
   
 Ở đây, bạn có thể thấy rằng mô hình của chúng ta có ba lớp, giống như tất cả các mô hình trước đó chúng ta đã xác định. Tiếp theo, hàm call() xác định cách các lớp này kết nối để tạo ra đầu ra cuối cùng. API lớp phụ được coi là khó khăn nhất để làm chủ, chủ yếu là do sự tự do. Tuy nhiên, phần thưởng là rất lớn khi bạn tìm hiểu API vì nó cho phép bạn xác định các mô hình/lớp rất phức tạp là các tính toán đơn vị có thể được sử dụng lại sau đó. Bây giờ bạn đã hiểu cách mỗi API hoạt động, hãy để thực hiện một mạng lưới thần kinh bằng cách sử dụng Keras và đào tạo nó trên một bộ dữ liệu.
  
-## <font color = 'blue'> Thực hiện mạng neural network đầu tiên của chúng ta
+## <font color = 'blue'> 6.Thực hiện mạng neural network đầu tiên của chúng ta
 
 Một trong những bước đệm để giới thiệu các mạng thần kinh là triển khai một mạng lưới thần kinh có khả năng phân loại các chữ số. Đối với nhiệm vụ này, chúng tôi sẽ sử dụng bộ dữ liệu MNIST nổi tiếng được cung cấp tại http://yann.lecun.com/exdb/mnist/.
 
@@ -711,4 +711,75 @@ Các đối số được mong đợi bởi hàm evaluate() đã được đề 
 
 Bạn sẽ bị loss 0,138 và độ chính xác là 98%. Bạn sẽ không nhận được các giá trị chính xác giống nhau do sự ngẫu nhiên khác nhau trong mô hình, cũng như trong quá trình đào tạo
 
-Trong phần này, chúng tôi đã trải qua một ví dụ từ đầu đến cuối về đào tạo một mạng lưới thần kinh. Chúng tôi đã chuẩn bị dữ liệu, đào tạo mô hình trên dữ liệu đó và cuối cùng đã kiểm tra nó trên một số dữ liệu chưa từng thấy
+# <font color = 'red'> Word2vec
+  
+## <font color = 'yellow'> Giới thiệu
+
+Word2vec là một mô hình đơn giản và nổi tiếng giúp tạo ra các biểu diễn embedding của từ trong một không gian có số chiều thấp hơn nhiều lần so với số từ trong từ điển.
+
+Ý tưởng cơ bản của word2vec có thể được gói gọn trong các ý sau:
+
+- Hai từ xuất hiện trong những văn cảnh giống nhau thường có ý nghĩa gần với nhau.
+
+- Ta có thể đoán được một từ nếu biết các từ xung quanh nó trong câu. Ví dụ, với câu “Hà Nội là … của Việt Nam” thì từ trong dấu ba chấm khả năng cao là “thủ đô”. Với câu hoàn chỉnh “Hà Nội là thủ đô của Việt Nam”, mô hình word2vec sẽ xây dựng ra embeding của các từ sao cho xác suất để từ trong dấu ba chấm là “thủ đô” là cao nhất.
+
+## <font color = 'blue'> Một vài định nghĩa
+
+Trong ví dụ trên đây, từ “thủ đô” đang được xét và được gọi là target word hay từ đích. Những từ xung quanh nó được gọi là context words hay từ ngữ cảnh. Với mỗi từ đích trong một câu của cơ sở dữ liệu, các từ ngữ cảnh được định nghĩa là các từ trong cùng câu có vị trí cách từ đích một khoảng không quá C/2 với C là một số tự nhiên dương. Như vậy, với mỗi từ đích, ta sẽ có một bộ không quá C từ ngữ cảnh.
+
+Xét ví dụ sau đây với câu tiếng Anh: “The quick brown fox jump over the lazy dog” với C=4.
+
+![](/assets/img/NLP15.png)
+
+Khi “the” là từ đích, ta có cặp dữ liệu huấn luyện là (the, quick) và (the, brown). Khi “brown” là từ đích, ta có cặp dữ liệu huấn luyện là (brown, the), (brown, quick), (brown, fox) và (brown, jumps).
+
+Word2vec định nghĩa hai embedding vector cùng chiều cho mỗi từ w trong từ điển. Khi nó là một từ đích, embedding vector của nó là u; khi nó là một từ ngữ cảnh, embedding của nó là v. Sở dĩ ta cần hai embedding khác nhau vì ý nghĩa của từ đó khi nó là từ đích và từ ngữ cảnh là khác nhau. Tương ứng với đó, ta có hai ma trận embedding U và V cho các từ đích và các từ ngữ cảnh.
+
+Có hai cách khác nhau xây dựng mô hình word2vec:
+
+- Skip-gram: Dự đoán những từ ngữ cảnh nếu biết trước từ đích.
+
+- CBOW (Continuous Bag of Words): Dựa vào những từ ngữ cảnh để dự đoán từ đích.
+
+Mỗi cách có những ưu nhược điểm khác nhau và áp dụng với những loại dữ liệu khác nhau.
+
+## <font color = 'blue'> Skip-gram 
+
+Mô hình skip-gram liên tục học bằng cách dự đoán các từ xung quanh được đưa ra một từ hiện tại. Nói cách khác, Mô hình Skip-Gram liên tục dự đoán các từ trong một phạm vi nhất định trước và sau từ hiện tại trong cùng một câu.
+
+skip-gram dự đoán ngữ cảnh hoặc các từ lân cận cho một từ nhất định. Mô hình Skip-Gram được đào tạo trên các cặp n-gram (target_word, context_word) với mã thông báo là 1 và 0. Mã thông báo chỉ định xem context_words đến từ cùng một cửa sổ hay được tạo ngẫu nhiên. Cặp có mã thông báo 0 bị bỏ qua.
+
+## <font color = 'blue'> Mã triển khai mô hình Skip-Gram
+
+Các bước cần tuân theo:
+
+- Xây dựng vốn từ vựng corpus
+- Xây dựng trình tạo skip-gram [(mục tiêu, ngữ cảnh), mức độ liên quan]
+- Xây dựng kiến trúc mô hình skip-gram
+- Đào tạo mô hình
+- Nhận nhúng Word
+ 
+### <font color = 'green'> 1. Xây dựng vốn từ vựng corpus:
+
+Bước thiết yếu trong khi xây dựng bất kỳ mô hình dựa trên NLP nào là tạo ra một kho tài liệu trong đó chúng tôi trích xuất từng từ duy nhất từ vựng và gán một số nhận dạng duy nhất cho nó.
+
+Kho tư liệu chúng ta đang sử dụng là 'The King James Version of the Bible', từ Dự án Gutenberg, có sẵn miễn phí thông qua mô hình corpus trong nltk.
+
+```python
+from nltk.corpus import gutenberg # to get bible corpus
+from string import punctuation # to remove punctuation from corpus
+import nltk 
+import numpy as np
+from keras.preprocessing import text
+from keras.preprocessing.sequence import skipgrams 
+from keras.layers import *
+from keras.layers.core import Dense, Reshape
+from keras.layers.embeddings import Embedding
+from keras.models import Model,Sequential 
+```
+```python
+nltk.download('gutenberg')
+nltk.download('punkt')
+nltk.download('stopwords')
+```
+stop_words = nltk.corpus.stopwords.words('english')
