@@ -88,7 +88,7 @@ Có thể sử dụng mạng thần kinh (có thể sâu hoặc nông, tùy thu�
 
 • Amazon Web Services (AWS): https://aws.amazon.com/
 
-# <font color ='red'> Hiểu về Tensorflow 2
+# <font color ='red'> II.Hiểu về Tensorflow 2
 
 ## <font color = 'blue'> Tensorflow là gì?
 
@@ -210,5 +210,23 @@ b = tf.Variable(init_b, dtype=tf.float32, name='b')
 h = layer(x,W,b)
 print(f"h = {h.numpy()}")
 ```
+## <font color = 'blue'> Đầu vào, biến, đầu ra và operation
 
+• Đầu vào: Dữ liệu được sử dụng để đào tạo và kiểm tra các thuật toán của chúng tôi 
 
+• Biến: Tensor có thể thay đổi, chủ yếu xác định các tham số của thuật toán của chúng tôi
+
+• Đầu ra: Các tensor bất biến lưu trữ cả đầu ra đầu cuối và đầu ra trung gian 
+
+• Operation: Các phép biến đổi khác nhau cho đầu vào để tạo ra đầu ra mong muốn
+
+![](/assets/img/NLP7.png)
+
+### <font color = 'green'> Định nghĩa đầu vào trong Tensorflow
+Có ba cách khác nhau mà bạn có thể cung cấp dữ liệu cho chương trình TensorFlow: 
+
+• Tạo dữ liệu dưới dạng mảng Numpy 
+
+• Tạo dữ liệu dưới dạng tenorflow tensors 
+
+• Sử dụng API TF.DATA để tạo đường ống đầu vào 
