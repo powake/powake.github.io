@@ -59,7 +59,7 @@ Các tài nguyên bên ngoài khác nhau là cần thiết để nó hoạt đ�
 
 Các mô hình sâu đã tạo ra một làn sóng thay đổi mô hình trong nhiều lĩnh vực trong học máy, vì các mô hình sâu đã học được các tính năng phong phú từ dữ liệu thô thay vì sử dụng các tính năng bị hạn chế do con người thiết kế. Điều này do đó khiến kỹ thuật tính năng gây phiền nhiễu và đắt tiền bị lỗi thời. Với điều này, các mô hình sâu đã làm cho quy trình làm việc truyền thống hiệu quả hơn, vì các mô hình sâu thực hiện học tập tính năng và học tập nhiệm vụ một cách đồng thời. Hơn nữa, do số lượng lớn các tham số (nghĩa là trọng số) trong một mô hình sâu, nó có thể bao gồm nhiều tính năng hơn đáng kể so với con người có thể thiết kế. Tuy nhiên, các mô hình sâu được coi là một hộp đen do khả năng diễn giải kém của mô hình. 
 Một mạng lưới thần kinh sâu về cơ bản là một mạng lưới thần kinh nhân tạo có lớp đầu vào, nhiều lớp ẩn được kết nối với nhau ở giữa, và cuối cùng, một lớp đầu ra (ví dụ: phân loại hoặc hồi quy). Như bạn có thể thấy, điều này tạo thành một mô hình từ đầu đến cuối từ dữ liệu thô đến dự đoán. Các lớp ẩn này ở giữa cung cấp sức mạnh cho các mô hình sâu vì chúng chịu trách nhiệm học các tính năng tốt từ dữ liệu thô.
-## <font color = 'blue'> Hiểu một mô hình sâu đơn giản - một mạng lưới thần kinh được kết nối đầy đủ
+## <font color = 'blue'> 6.Hiểu một mô hình sâu đơn giản - một mạng lưới thần kinh được kết nối đầy đủ
 Bây giờ, hãy để có một cái nhìn kỹ hơn về một mạng lưới thần kinh sâu để có được sự hiểu biết tốt hơn. Mặc dù có rất nhiều biến thể khác nhau của các mô hình sâu, hãy nhìn vào một trong những mô hình sớm nhất có từ năm 1950 mô tả một a fully connected neural network (FCNN) có ba lớp tiêu chuẩn
 
 Mục tiêu của FCNN là ánh xạ đầu vào (ví dụ: hình ảnh hoặc câu) đến một nhãn hoặc chú thích nhất định (ví dụ: danh mục đối tượng cho hình ảnh). Điều này đạt được bằng cách sử dụng đầu vào X để tính toán H - biểu diễn ẩn của X - sử dụng một phép biến đổi như ℎ=𝜎(𝑊 * h + b); Ở đây, W là trọng số và b là độ lệch của FCNN, và 𝜎 là chức năng kích hoạt sigmoid. Mạng thần kinh sử dụng các chức năng kích hoạt phi tuyến tính ở mỗi lớp. Kích hoạt sigmoid là một trong những kích hoạt như vậy. Nó là một chuyển đổi phần tử được áp dụng cho đầu ra của một lớp, trong đó đầu ra sigmoidal của x được cho bởi, 𝜎(𝑥) = 1/(1+𝑒-x). 
@@ -69,3 +69,20 @@ Tiếp theo, một trình phân loại được đặt trên đầu FCNN cung c�
 Ví dụ, một phân loại SoftMax có thể được sử dụng cho các vấn đề phân loại đa nhãn. Nó cung cấp một biểu diễn chuẩn hóa của đầu ra điểm số của lớp phân loại. Đó là, nó sẽ tạo ra một phân phối xác suất hợp lệ trên các lớp trong lớp phân loại. Nhãn được coi là nút đầu ra có giá trị softmax cao nhất. Sau đó, với điều này, chúng ta có thể xác định tổn thất phân loại được tính là sự khác biệt giữa nhãn đầu ra dự đoán và nhãn đầu ra thực tế. Một ví dụ về chức năng mất mát như vậy là mất bình phương trung bình (mean squared loss).
 
 Tiếp theo, các tham số mạng thần kinh, W, B, WS và BS, được tối ưu hóa bằng trình tối ưu hóa ngẫu nhiên tiêu chuẩn (ví dụ: giảm độ dốc ngẫu nhiên) để giảm sự mất phân loại của tất cả các đầu vào. Hình dưới mô tả quá trình được giải thích trong đoạn này cho FCNN ba lớp.
+
+![](/assets/img/NLP3.png)
+
+Có thể sử dụng mạng thần kinh (có thể sâu hoặc nông, tùy thuộc vào độ khó của nhiệm vụ) cho nhiệm vụ này bằng cách tuân thủ quy trình làm việc sau:
+
+1. Mã thông báo (Tokenize) câu thành các từ. 
+2. Chuyển đổi các câu thành một biểu diễn số có kích thước cố định (ví dụ: biểu diễn túi của các từ). Một biểu diễn có kích thước cố định là cần thiết vì các mạng thần kinh được kết nối đầy đủ đòi hỏi một đầu vào có kích thước cố định. 
+3. Cung cấp các đầu vào số vào mạng thần kinh, dự đoán đầu ra (dương hoặc âm) và so sánh với mục tiêu thực. 
+4. Tối ưu hóa mạng lưới thần kinh bằng cách sử dụng chức năng tổn thất mong muốn.
+
+## <font color = 'blue'> 7. Một số nền tảng tính toán dựa trên đám mây phổ biến
+
+• Google Colab: https://colab.research.google.com/
+
+• Google Cloud Platform (GCP): https://cloud.google.com/
+
+• Amazon Web Services (AWS): https://aws.amazon.com/
